@@ -46,6 +46,8 @@ Vagrant.configure("2") do |config|
 	sudo apt-add-repository ppa:ansible/ansible
 	sudo apt-get update
 	sudo apt-get install -y ansible
+	#Sceptre
+	sudo pip install sceptre
 	SHELL
 	# Time update
 	config.vm.provision :shell, :inline => "sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime", run: "always"  
