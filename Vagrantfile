@@ -1,12 +1,14 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Require 'vagrant plugin install vagrant-reload'
+
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/trusty64"
     config.vm.provider "virtualbox" do |v|
         v.memory = 4096
     end
-    config.vm.provision "docker"
+#    config.vm.provision "docker"
     config.vm.network :forwarded_port, guest: 8080, host: 8080
     config.vm.network :forwarded_port, guest: 2375, host: 2375, host_ip: "127.0.0.1"
     config.vm.hostname="dockerhost"
@@ -37,6 +39,12 @@ Vagrant.configure("2") do |config|
 	sudo gem install sfn
 	#Stackmaster
 	sudo gem install stack_master
+	
+	SHELL
+	
+	config.vm.provision :shell, :path => 'pyenv-install.sh', :privileged => false
+	
+	config.vm.provision "shell", inline: <<-SHELL
 	#AWS CLI
 	sudo apt-get install -y python-pip
 	sudo apt-get update
@@ -48,7 +56,11 @@ Vagrant.configure("2") do |config|
 	sudo apt-get install -y ansible
 	#Sceptre
 	sudo pip install sceptre
+	
+	## Dinge fuer DB
+	#sudo pip install virtualenv 
 	SHELL
+
 	# Time update
 	config.vm.provision :shell, :inline => "sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime", run: "always"  
  
