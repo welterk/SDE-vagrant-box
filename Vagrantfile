@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
     config.vm.provider "virtualbox" do |v|
         v.memory = 4096
     end
-#    config.vm.provision "docker"
+    config.vm.provision "docker"
     config.vm.network :forwarded_port, guest: 8080, host: 8080
     config.vm.network :forwarded_port, guest: 2375, host: 2375, host_ip: "127.0.0.1"
     config.vm.hostname="dockerhost"
