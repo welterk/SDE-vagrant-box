@@ -66,8 +66,9 @@ Vagrant.configure("2") do |config|
 	sudo apt-get update
 	sudo apt-get install -y kubectl
 	# yq install
-	sudo curl -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o /bin/yq \
-	sudo chmod +x /bin/yq
+	sudo add-apt-repository ppa:rmescandon/yq -y
+	sudo apt update
+	sudo apt install yq -y	
 	SHELL
 
 	# Time update
