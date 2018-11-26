@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
     end
     config.vm.provision "docker"
     config.vm.network :forwarded_port, guest: 8080, host: 8080
+	config.vm.network :forwarded_port, guest: 3128, host: 3128
     config.vm.network :forwarded_port, guest: 2375, host: 2375, host_ip: "127.0.0.1"
     config.vm.hostname="dockerhost"
 
@@ -57,8 +58,16 @@ Vagrant.configure("2") do |config|
 	#Sceptre
 	sudo pip install sceptre
 	
-	## Dinge fuer DB
-	#sudo pip install virtualenv 
+	# kubctl
+	sudo apt-get update && sudo apt-get install -y apt-transport-https
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	sudo touch /etc/apt/sources.list.d/kubernetes.list 
+	echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+	sudo apt-get update
+	sudo apt-get install -y kubectl
+	# yq install
+	sudo curl -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o /bin/yq \
+	sudo chmod +x /bin/yq
 	SHELL
 
 	# Time update
