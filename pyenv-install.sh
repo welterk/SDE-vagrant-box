@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/bin/bash
 
 #requirements
 sudo apt-get install -y make 
